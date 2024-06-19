@@ -1,0 +1,30 @@
+
+.nav-container{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    margin: 0;
+    justify-content: space-between;
+
+}
+
+.nav-left{
+    display: flex;
+    align-items: center;
+}
+.nav-right{
+    margin-right: 20px;
+}
+.image-logo{
+    height: 30px;
+    margin-left: 20px;
+}
+.nav-text{
+    font-family:"Bangers",cursive;
+    font-size: 30px;
+    color: aliceblue;
+}
+.nav-link{
+    color: aliceblue;
+}
+

@@ -1,0 +1,30 @@
+.landing-container{
+    display: flex;
+    min-height: 90vh;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+    flex-wrap: wrap;
+}
+.landing-left{
+    font-size: 80px;
+    color: rgb(246, 239, 239);
+    font-family: "Bangers",sans-serif;
+}
+.typewriter-container{
+    font-size: 60px;
+}
+@media (max-width: 800px) {
+    .landing-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-image {
+        width: 80vw;
+    }
+
+    .typewriter-container {
+        text-align: center;
+    }
+}
