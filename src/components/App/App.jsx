@@ -10,7 +10,7 @@ const paragraphurl="http://metaphorpsum.com/paragraphs/1/9";
 
 const App=()=>{
 
-        const [selectedparagraph,setselectedparagraph]=useState("Hello World example")
+        const [selectedparagraph,setselectedparagraph]=useState()
         const [word,setword]=useState(0)
         const [character,setcharacter]=useState(0)
         const [wpm,setwpm]=useState(0)
@@ -19,31 +19,33 @@ const App=()=>{
         const [testInfo ,settestInfo]=useState([])
         const [onInputChange,setonInputChange]=useState()
 
-    const fetchNewParagraphFallback=()=>{
-        //     fetch(paragraphurl) 
-        //     .then((response)=>response.text())
-        //     .then((response) => {
-        //         setselectedparagraph(response)
-        //     })
-            const selectedParagraphArray = selectedparagraph.split("");
-            const testInfo = selectedParagraphArray.map((selectedLetter) => {
-                return {
-                    testLetter: selectedLetter,
-                    status: "notAttempted",
-                };
-            });
-            settestInfo(testInfo);
-        }
-
-    useEffect(() => {
+        const fetchNewParagraphFallback = () => {
+            fetch(paragraphurl)
+                .then((response) => response.text())
+                .then((data) => {
+                    const selectedParagraphArray = data.split("");
+                    const testInfo = selectedParagraphArray.map((selectedLetter) => {
+                        return {
+                            testLetter: selectedLetter,
+                            status: "notAttempted",
+                        };
+                    });
+                    settestInfo(testInfo); 
+                });
+        };
+        useEffect(() => {
             fetchNewParagraphFallback();
-        },[]);
+          }, []);
+        
+        const startagain = () => {
+            fetchNewParagraphFallback();
+            settimestarted(false);
+            settimeremaining(60);
+          };
+        
 
 
-    const startagain = () => fetchNewParagraphFallback();
-
-
-        const handleUserInput=(inputvalue)=>{
+    const handleUserInput=(inputvalue)=>{
             if(!timestarted){starttime()};
             const character=inputvalue.length;
             const word = inputvalue.trim() ? inputvalue.trim().split(" ").length : 0; // Check if input is empty or only whitespace
@@ -64,11 +66,11 @@ const App=()=>{
             setword(word);
         }
 
-        const starttime =()=>{
+    const starttime =()=>{
             settimestarted(true);
             settimeremaining(60);
         }
-        useEffect(()=>{
+    useEffect(()=>{
             if (timestarted && timeremaining > 0) {
                 const timer=setInterval(()=>{
                     settimeremaining(timeremaining=>{
